@@ -15,6 +15,7 @@ User.create!(
   email: "douglas@example.com",
   password: "123456",
   role: :owner,
+  number: "080-3509-2343"
 )
 
 User.create!(
@@ -23,6 +24,7 @@ User.create!(
   email: "giovanni@example.com",
   password: "123456",
   role: :staff,
+  number: "090-3509-9999"
 )
 
-puts "accounts cretaed successfully!"
+puts "accounts created successfully!"

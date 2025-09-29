@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :professionals, through: :appointments
   has_one_attached :photo
 
-  validates :name, :gender, presence: true
+  validates :name, :gender, :number, presence: true
   GENDERS = ["male", "female"]
   validates :gender, inclusion: { in: GENDERS }
   enum role: { user: 0, staff: 1, owner: 2 }
