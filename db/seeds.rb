@@ -24,6 +24,12 @@ user1 = User.create!(
   number: "080-3509-2343"
 )
 
+user1.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/userSeed.jpg")),
+  filename: "userSeed.jpg",
+  content_type: "image/jpeg"
+)
+
 user2 = User.create!(
   name: "Giovanni",
   gender: "male",
@@ -31,6 +37,12 @@ user2 = User.create!(
   password: "123456",
   role: :staff,
   number: "090-3509-9999"
+)
+
+user2.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/userSeed.jpg")),
+  filename: "userSeed.jpg",
+  content_type: "image/jpeg"
 )
 
 user3 = User.create!(
@@ -42,6 +54,12 @@ user3 = User.create!(
   number: "070-3509-0099"
 )
 
+user3.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/userSeed.jpg")),
+  filename: "userSeed.jpg",
+  content_type: "image/jpeg"
+)
+
 puts "creating professionals..."
 prof1 = Professional.create!(
   name: "Giovanni",
@@ -49,6 +67,12 @@ prof1 = Professional.create!(
   start_at: "09:00",
   finish_at: "18:00",
   date: Date.today
+)
+
+prof1.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/userSeed.jpg")),
+  filename: "userSeed.jpg",
+  content_type: "image/jpeg"
 )
 
 puts "creating services..."
@@ -67,12 +91,19 @@ service2 = Service.create!(
 )
 
 puts "Creating appointments..."
-Appointment.create!(
+appointment1 = Appointment.create!(
   user: user1,
   professional: prof1,
   date: Date.today + 1,
   start_time: "10:00",
   finish_time: "10:45",
 )
+
+appointment1.goal_image.attach(
+  io: File.open(Rails.root.join("app/assets/images/userSeed.jpg")),
+  filename: "userSeed.jpg",
+  content_type: "image/jpeg"
+)
+
 
 puts "Successfully seeded!"

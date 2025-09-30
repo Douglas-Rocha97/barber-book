@@ -23,7 +23,11 @@
     <h2 class="">Your appointments</h2>
     <% @appointments.each do |appointment|  %>
       <div>
-        <%= appointment %>
+        <% if appointment.goal_image.attached? %>
+          <%= image_tag appointment.goal_image.variant(resize_to_limit: [200, 200]) %>
+        <% else %>
+          <p>No image yet</p>
+        <% end %>
       </div>
     <% end %>
   </div>
