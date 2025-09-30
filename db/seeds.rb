@@ -7,9 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-puts "creating and staff account..."
+puts "Cleaning data base..."
+ Appointment.destroy_all
+ Service.destroy_all
+ Professional.destroy_all
+ User.destroy_all
 
-User.create!(
+puts "creating accounts..."
+
+user1 = User.create!(
   name: "Douglas",
   gender: "male",
   email: "douglas@example.com",
@@ -18,7 +24,7 @@ User.create!(
   number: "080-3509-2343"
 )
 
-User.create!(
+user2 = User.create!(
   name: "Giovanni",
   gender: "male",
   email: "giovanni@example.com",
@@ -27,4 +33,46 @@ User.create!(
   number: "090-3509-9999"
 )
 
-puts "accounts created successfully!"
+user3 = User.create!(
+  name: "Diego",
+  gender: "male",
+  email: "diego@example.com",
+  password: "123456",
+  role: :user,
+  number: "070-3509-0099"
+)
+
+puts "creating professionals..."
+prof1 = Professional.create!(
+  name: "Giovanni",
+  role: "barber",
+  start_at: "09:00",
+  finish_at: "18:00",
+  date: Date.today
+)
+
+puts "creating services..."
+service1 = Service.create!(
+  name:"haircut",
+  price: 3800,
+  duration: 45,
+  professional: prof1
+)
+
+service2 = Service.create!(
+  name:"beard trimm",
+  price: 2000,
+  duration: 30,
+  professional: prof1
+)
+
+puts "Creating appointments..."
+Appointment.create!(
+  user: user1,
+  professional: prof1,
+  date: Date.today + 1,
+  start_time: "10:00",
+  finish_time: "10:45",
+)
+
+puts "Successfully seeded!"

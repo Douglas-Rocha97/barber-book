@@ -1,0 +1,30 @@
+<div class="wrapper text-light h-100">
+  <div class="d-flex p-4 w-100 align-items-center gap-2 bg-gray">
+    <%= image_tag "userSeed.jpg", alt: "avatar image", class: "avatar-img rounded-circle"%>
+    <div class="d-flex flex-column">
+      <p class="m-0 fs-greet">Welcome</p>
+      <p class="m-0">Hay, Douglas 👋</p>
+    </div>
+  </div>
+  <%# ----------- Coupons --------- %>
+  <div class="mt-3 mx-3">
+    <h3 class="mb-3">Coupons & Packs</h3>
+    <div class="position-relative">
+      <div class="back-card rounded-5 d-flex align-items-center justify-content-center">
+        <h4 class="fs-1">15% OFF</h4>
+      </div>
+      <div class="position-absolute w-100 h-100 start-0 top-0 rounded-5 coupon-img d-flex align-items-center justify-content-center">
+        <h4 class="fs-1">15% OFF</h4>
+      </div>
+    </div>
+  </div>
+  <%# ----------- Appointments --------- %>
+  <div class="mt-3 mx-3">
+    <h2 class="">Your appointments</h2>
+    <% @appointments.each do |appointment|  %>
+      <div>
+        <%= appointment %>
+      </div>
+    <% end %>
+  </div>
+</div>

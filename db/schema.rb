@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_25_060157) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_30_031109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_25_060157) do
   create_table "appointments", force: :cascade do |t|
     t.date "date"
     t.text "details"
-    t.string "goal_image"
     t.time "start_time"
     t.time "finish_time"
     t.bigint "user_id", null: false
@@ -58,7 +57,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_25_060157) do
 
   create_table "professionals", force: :cascade do |t|
     t.string "name"
-    t.string "photo"
     t.time "start_at"
     t.time "finish_at"
     t.string "role"
@@ -87,7 +85,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_25_060157) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "gender"
-    t.string "photo"
     t.integer "role"
     t.string "number"
     t.index ["email"], name: "index_users_on_email", unique: true

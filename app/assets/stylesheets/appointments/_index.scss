@@ -1,0 +1,44 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  height: 100vh;
+}
+
+.wrapper{
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.bg-gray{
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0 0 3rem 3rem;
+}
+
+.avatar-img{
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+.fs-greet{
+  font-size: .7rem;
+}
+
+.coupon-img{
+  height: 8rem;
+  background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), asset-url("couponBg.jpg");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 6px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.back-card{
+  height: 8rem;
+  background-color: gray;
+  transform: rotate(3deg);
+}
