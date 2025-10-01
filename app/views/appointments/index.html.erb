@@ -1,4 +1,4 @@
-<div class="wrapper text-light h-100">
+<div class="wrapper text-light h-100 position-relative">
   <div class="d-flex p-4 w-100 align-items-center gap-2 bg-gray">
     <%= image_tag "userSeed.jpg", alt: "avatar image", class: "avatar-img rounded-circle"%>
     <div class="d-flex flex-column">
@@ -49,4 +49,5 @@
       </div>
     <% end %>
   </div>
+  <%= link_to "Let's Cut!" , new_appointment_path, class: "mx-2 py-3 bg-warning rounded-5 text-center fs-3 position-fixed appointment-btn" %>
 </div>
