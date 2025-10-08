@@ -75,6 +75,20 @@ prof1.photo.attach(
   content_type: "image/jpeg"
 )
 
+prof2 = Professional.create!(
+  name: "Willian",
+  role: "barber",
+  start_at: "09:00",
+  finish_at: "18:00",
+  date: Date.today
+)
+
+prof2.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/userSeed.jpg")),
+  filename: "userSeed.jpg",
+  content_type: "image/jpeg"
+)
+
 puts "creating services..."
 service1 = Service.create!(
   name:"haircut",

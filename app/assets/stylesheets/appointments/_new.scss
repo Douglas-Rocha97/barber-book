@@ -9,7 +9,6 @@
 
 .tag-selector + label {
   cursor: pointer;
-  display: inline-block;
   font-size: 1rem;
   border-radius: 50rem;
   padding: 0.5rem 1rem;
@@ -29,4 +28,27 @@
   width: 5rem;
   height: 5rem;
   object-fit: cover;
+}
+
+.professional-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.professional-selector + label {
+  cursor: pointer;
+}
+
+.professional-selector + label img {
+  transition: all 0.2s ease-in-out;
+}
+
+.professional-selector:hover + label img {
+  border: 2px solid #FFC107;
+  box-shadow: 0 0 15px 5px rgba(255, 193, 7, 0.6);
+}
+
+.professional-selector:checked + label img {
+  border: 2px solid #FFC107;
+  box-shadow: 0 0 15px 5px rgba(255, 193, 7, 0.6);
 }
