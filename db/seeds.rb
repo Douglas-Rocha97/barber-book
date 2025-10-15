@@ -123,6 +123,12 @@ service3 = Service.create!(
   duration: 120
 )
 
+service4 = Service.create!(
+  name:"Eyebrow shaping",
+  price: 1800,
+  duration: 20
+)
+
 puts "Associating services to professionals..."
 ProfessionalService.create!(professional: prof1, service: service1)
 ProfessionalService.create!(professional: prof1, service: service2)
@@ -130,6 +136,7 @@ ProfessionalService.create!(professional: prof2, service: service1)
 ProfessionalService.create!(professional: prof3, service: service1)
 ProfessionalService.create!(professional: prof3, service: service2)
 ProfessionalService.create!(professional: prof3, service: service3)
+ProfessionalService.create!(professional: prof3, service: service4)
 
 
 puts "Creating appointments..."
