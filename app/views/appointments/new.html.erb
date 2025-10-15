@@ -16,7 +16,7 @@
     <div class="mx-3">
       <%# ----------- Services ----------- %>
       <h6>Pick Your services</h6>
-        <div class="d-flex align-items-center gap-2 mb-3" >
+        <div class="d-flex align-items-center gap-2 overflow-auto hide-scrollbar mb-3" >
           <% @services.each do |service| %>
             <div class="service-item">
               <%= check_box_tag "appointment[selected_service_names][]", service.name, @appointment.selected_service_id&.include?(service.name), class: "tag-selector", id: "service_#{service.id}", data: { appointment_target: "checkbox", action: "click->appointment#checkProfessional" } %>

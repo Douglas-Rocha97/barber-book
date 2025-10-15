@@ -47,8 +47,11 @@
   opacity: 0.2;
 }
 
-
 .professional-selector:checked + label img {
   border: 2px solid #FFC107;
   box-shadow: 0 0 15px 5px rgba(255, 193, 7, 0.6);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
