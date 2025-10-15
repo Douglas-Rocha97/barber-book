@@ -89,20 +89,47 @@ prof2.photo.attach(
   content_type: "image/jpeg"
 )
 
+prof3 = Professional.create!(
+  name: "Ingrid",
+  role: "barber",
+  start_at: "09:00",
+  finish_at: "18:00",
+  date: Date.today
+)
+
+prof2.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/userSeed.jpg")),
+  filename: "userSeed.jpg",
+  content_type: "image/jpeg"
+)
+
 puts "creating services..."
 service1 = Service.create!(
   name:"haircut",
   price: 3800,
-  duration: 45,
-  professional: prof1
+  duration: 45
 )
 
 service2 = Service.create!(
   name:"beard trimm",
   price: 2000,
-  duration: 30,
-  professional: prof1
+  duration: 30
 )
+
+service3 = Service.create!(
+  name:"Hair coloring",
+  price: 10000,
+  duration: 120
+)
+
+puts "Associating services to professionals..."
+ProfessionalService.create!(professional: prof1, service: service1)
+ProfessionalService.create!(professional: prof1, service: service2)
+ProfessionalService.create!(professional: prof2, service: service1)
+ProfessionalService.create!(professional: prof3, service: service1)
+ProfessionalService.create!(professional: prof3, service: service2)
+ProfessionalService.create!(professional: prof3, service: service3)
+
 
 puts "Creating appointments..."
 appointment1 = Appointment.create!(
