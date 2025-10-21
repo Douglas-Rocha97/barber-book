@@ -30,19 +30,23 @@
 
         <%# ----------- professionals ----------- %>
         <h6>Pick you professional</h6>
-        <div class="d-flex gap-2" >
+        <div class="d-flex gap-2" data-appointment-target="professionalsList" >
           <% @professionals.each do |professional| %>
             <div class="w-25 d-flex align-items-center justify-content-center">
-              <%= f.radio_button :professional_id, professional.id, id: "professional_#{professional.id}", disabled: true %>
+              <%= f.radio_button :professional_id,  professional.id, id: "professional_#{professional.id}", class: "professional-selector", disabled: true %>
 
-              <%= f.label :professional_id, professional.name, for: "professional_#{professional.id}", data: { appointment_target: "professionalLabel", services: professional.services.pluck(:id).join(',') }%>
+              <%= f.label :professional_id, for: "professional_#{professional.id}", class: "d-flex flex-column align-items-center" , data: { appointment_target: "professionalLabel", services: professional.services.pluck(:id).join(',') } do %>
+                <span><%= image_tag professional.photo, class: "professional-img rounded-circle" %></span>
+                <span><%= professional.name %></span>
+
+              <% end %>
             </div>
           <% end %>
         </div>
     </div>
 
     <div class="m-3 mb-5">
-    <h6>Pick a date</h6>
+      <h6>Pick a date</h6>
       <%= month_calendar do |date| %>
         <%= date.day %>
       <% end %>

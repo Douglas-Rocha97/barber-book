@@ -2,26 +2,25 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="appointment"
 export default class extends Controller {
-  static targets = ["checkbox","professionalLabel"]
+  static targets = ["checkbox","professionalLabel", "professionalsList"]
+
+  connect() {
+
+  }
 
   checkProfessional(e) {
 
-     // 1. Collect all selected services
-     const selectedServices = this.checkboxTargets
-      .filter((checkbox) => checkbox.checked)
-      .map((checkbox) => {
-        const label = checkbox.nextElementSibling;
-        return label.querySelector("span").innerText;
-      });
+     // 1. Collect all service_ids if checked (array of strings)
+    const selectedServiceIds = this.checkboxTargets
+      .filter(cb=> cb.checked).map(cb=> cb.value);
 
     // 2. Update all professionals based on selected services
     this.professionalLabelTargets.forEach((label) => {
-      const professionalServices = label.dataset.services.split(',');
-      const radioId = label.getAttribute('for');
-      const radio = document.getElementById(radioId);
+      const professionalServiceIds = label.dataset.services.split(',');// array of strings
+      const radio = document.getElementById(label.getAttribute('for'))
 
-      const hasService = selectedServices.some(service =>
-        professionalServices.includes(service)
+      const hasService = selectedServiceIds.some(service =>
+        professionalServiceIds.includes(service)
       );
 
       radio.disabled = !hasService;
@@ -30,6 +29,22 @@ export default class extends Controller {
         radio.checked = false;
       }
     });
+
+    const professionals = Array.from(this.professionalsListTarget.children);
+
+    professionals.sort((divA, divB) => {
+      const labelA = divA.querySelector("label");
+      const labelB = divB.querySelector("label");
+
+      const radioA = document.getElementById(labelA.getAttribute("for"));
+      const radioB = document.getElementById(labelB.getAttribute("for"));
+
+      // Enabled professionals come first
+      return (radioA.disabled === radioB.disabled) ? 0 : (radioA.disabled ? 1 : -1);
+    });
+
+    // 4. Re-append sorted professionals to the container
+    professionals.forEach(prof => this.professionalsListTarget.appendChild(prof));
 
   }
 
