@@ -12,7 +12,8 @@ export default class extends Controller {
 
      // 1. Collect all service_ids if checked (array of strings)
     const selectedServiceIds = this.checkboxTargets
-      .filter(cb=> cb.checked).map(cb=> cb.value);
+      .filter(cb=> cb.checked)
+      .map(cb=> cb.value);
 
     // 2. Update all professionals based on selected services
     this.professionalLabelTargets.forEach((label) => {
@@ -48,22 +49,75 @@ export default class extends Controller {
 
   }
 
+  enableCalendar(e) {
+    const selectedRadio = e.target
+    if (!selectedRadio.checked) return
+
+    this.selectedProfessionalId = selectedRadio.value
+    this.calendarEnabled = true
+  }
+
   selectDate(e) {
-    // console.log(e.target);
+    if (!this.calendarEnabled) {
+      console.warn("pick a professional");
+      return
+    }
+
     const selectedDay = e.target.closest("td")
-    if (selectedDay.classList.contains("past")||selectedDay.classList.contains("wday-0"))return
+    if (!selectedDay || selectedDay.classList.contains("past")||selectedDay.classList.contains("wday-0"))return
 
     this.calendarTarget.querySelectorAll("td").forEach(day => {
       day.classList.remove("selected")
     })
 
     selectedDay.classList.add("selected")
-    const date = selectedDay.firstElementChild.dataset.date
-    console.log(date);
-    const input = document.getElementById("selected-date")
-    input.value = date
 
+    const dateDiv = selectedDay.querySelector("[data-date]")
+    if (!dateDiv) return
+
+    const selectedDate = dateDiv.dataset.date
+    const input = document.getElementById("selected-date")
+    input.value = selectedDate
+
+    if (!this.selectedProfessionalId) {
+      console.warn("pick a professional");
+      return
+    }
+
+    this.loadAvailableTimes(selectedDate, this.selectedProfessionalId)
   }
 
+  async loadAvailableTimes(date, professionalId){
+    try {
+      const response = await fetch(`/appointments/available_times?professional_id=${professionalId}&date=${date}`)
+      const data = await response.json()
+
+      this.renderTimes(data);
+    }catch(error) {
+      console.error("error fetching available time:", error);
+
+    }
+  };
+
+  renderTimes(times) {
+  this.timesListTarget.innerHTML = ''
+  times.forEach(time => {
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.textContent = time
+    btn.classList.add('time-btn')
+    btn.dataset.action = 'click->appointment#selectTime'
+    btn.dataset.time = time
+    this.timesListTarget.appendChild(btn)
+  })
+}
+
+selectTime(e) {
+  const time = e.currentTarget.dataset.time
+  document.getElementById('selected-time').value = time
+  // opcional: marcar visualmente o botão selecionado
+  this.timesListTarget.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'))
+  e.currentTarget.classList.add('selected')
+}
 
 }

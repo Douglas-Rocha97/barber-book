@@ -1,4 +1,4 @@
-<div class="wrapper h-100 text-light" data-controller="appointment">
+<div class="wrapper text-light" data-controller="appointment">
   <%= simple_form_for @appointment do |f|%>
     <div id="header" class="d-flex mx-3  align-items-center justify-content-between py-3">
       <%= link_to appointments_path, class: "rounded-3 fs-4 back-btn" do%>
@@ -33,12 +33,16 @@
         <div class="d-flex gap-2" data-appointment-target="professionalsList" >
           <% @professionals.each do |professional| %>
             <div class="w-25 d-flex align-items-center justify-content-center">
-              <%= f.radio_button :professional_id,  professional.id, id: "professional_#{professional.id}", class: "professional-selector", disabled: true %>
+              <%= f.radio_button :professional_id,  professional.id, id: "professional_#{professional.id}",data: { action: "change->appointment#enableCalendar" }, class: "professional-selector", disabled: true %>
 
-              <%= f.label :professional_id, for: "professional_#{professional.id}", class: "d-flex flex-column align-items-center" , data: { appointment_target: "professionalLabel", services: professional.services.pluck(:id).join(',') } do %>
+              <%= f.label :professional_id, for: "professional_#{professional.id}", class: "d-flex flex-column align-items-center" ,
+               data: {start: professional.start_at.strftime("%H:%M") ,
+               finish: professional.finish_at.strftime("%H:%M"),
+               appointment_target: "professionalLabel",
+               services: professional.services.pluck(:id).join(',') } do
+              %>
                 <span><%= image_tag professional.photo, class: "professional-img rounded-circle" %></span>
                 <span><%= professional.name %></span>
-
               <% end %>
             </div>
           <% end %>
@@ -47,7 +51,6 @@
 
     <div class="m-3 mb-5">
       <h6>Pick a date</h6>
-
       <div data-action="click->appointment#selectDate" data-appointment-target="calendar">
         <%= month_calendar do |date|  %>
           <div data-date=<%= date %>>
@@ -56,12 +59,11 @@
         <% end %>
       </div>
       <%= f.hidden_field :date, id: "selected-date" %>
-      <div data-appointment-target="timesList">
-
+      <div class="d-flex align-items-center gap-2 overflow-auto hide-scrollbar mb-5" data-appointment-target="timesList">
       </div>
     </div>
 
 
-    <%= f.submit "Let's Cut!" , class: "mx-2 py-3 bg-warning rounded-5 text-center fs-3 position-fixed appointment-btn" %>
+    <%= f.submit "Let's Cut!" , class: "d-none mx-2 py-3 bg-warning rounded-5 text-center fs-3 position-fixed appointment-btn" %>
   <% end %>
 </div>

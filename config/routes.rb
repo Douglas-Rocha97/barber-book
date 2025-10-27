@@ -13,5 +13,9 @@ Rails.application.routes.draw do
   #  resources :scans, only: [ :new, :create, :show ] do
   #   resources :recipes, only: [ :new, :create, :show ]
   # end
-  resources :appointments, only: [:index, :new, :create, :destroy]
+  resources :appointments, only: [:index, :new, :create, :destroy] do
+    collection do
+      get :available_times
+    end
+  end
 end
