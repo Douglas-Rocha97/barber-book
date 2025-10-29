@@ -2,13 +2,21 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="appointment"
 export default class extends Controller {
-  static targets = ["checkbox","professionalLabel", "professionalsList", "calendar", "timesList"]
+  static targets = ["checkbox", "date", "professionalLabel",
+     "professionalsList", "calendar", "timesList", "time",
+     "serviceError", "professionalError", "dateTimeError"
+    ]
 
   connect() {
 
   }
 
-  checkProfessional() {
+  checkProfessional(e) {
+    this.serviceErrorTarget.innerText = ""
+    if (!e.target.checked) {
+      const professionalsList = this.professionalsListTarget.querySelectorAll("input")
+      professionalsList.forEach(professional => professional.checked = false)
+    }
 
      // 1. Collect all service_ids if checked (array of strings)
     const selectedServiceIds = this.checkboxTargets
@@ -20,7 +28,7 @@ export default class extends Controller {
       const professionalServiceIds = label.dataset.services.split(',');// array of strings
       const radio = document.getElementById(label.getAttribute('for'))
 
-      const hasService = selectedServiceIds.some(service =>
+      const hasService = selectedServiceIds.every(service =>
         professionalServiceIds.includes(service)
       );
 
@@ -47,11 +55,21 @@ export default class extends Controller {
     // 4. Re-append sorted professionals to the container
     professionals.forEach(prof => this.professionalsListTarget.appendChild(prof));
 
+    const selectedRadio = this.professionalsListTarget.querySelector("input[type='radio']:checked");
+      if (!selectedRadio || selectedRadio.disabled) {
+      this.calendarEnabled = false;
+      this.dateTarget.value = ""
+      this.calendarTarget.querySelectorAll("td").forEach(day => {
+      day.classList.remove("selected")
+    })
+    }
   }
 
   enableCalendar(e) {
+    this.professionalErrorTarget.innerText=""
     const selectedRadio = e.target
-    if (!selectedRadio.checked) return
+
+    if (!selectedRadio.checked) this.calendarEnabled = false
 
     this.selectedProfessionalId = selectedRadio.value
     this.calendarEnabled = true
@@ -71,12 +89,13 @@ export default class extends Controller {
     })
 
     selectedDay.classList.add("selected")
+    this.dateTimeErrorTarget.innerText = ""
 
     const dateDiv = selectedDay.querySelector("[data-date]")
     if (!dateDiv) return
 
     const selectedDate = dateDiv.dataset.date
-    const input = document.getElementById("selected-date")
+    const input = this.dateTarget
     input.value = selectedDate
 
     if (!this.selectedProfessionalId) {
@@ -100,24 +119,51 @@ export default class extends Controller {
   };
 
   renderTimes(times) {
-  this.timesListTarget.innerHTML = ''
-  times.forEach(time => {
-    const btn = document.createElement('button')
-    btn.type = 'button'
-    btn.textContent = time
-    btn.classList.add('time-btn')
-    btn.dataset.action = 'click->appointment#selectTime'
-    btn.dataset.time = time
-    this.timesListTarget.appendChild(btn)
-  })
-}
+    this.timesListTarget.innerHTML = ''
+    times.forEach(time => {
+      const div = document.createElement('div')
+      const input = document.createElement("input")
+      input.type = "radio"
+      input.name = "appointment[start_time]"
+      input.dataset.time = time
+      input.id = time
+      input.classList = "tag-selector"
+      input.dataset.action = "change->appointment#selectTime"
+      const label = document.createElement("label")
+      label.htmlFor = time
+      label.innerText = time
+      div.appendChild(input)
+      div.appendChild(label)
+      this.timesListTarget.appendChild(div)
+    })
+  }
 
-selectTime(e) {
-  const time = e.currentTarget.dataset.time
-  document.getElementById('selected-time').value = time
-  // opcional: marcar visualmente o botão selecionado
-  this.timesListTarget.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'))
-  e.currentTarget.classList.add('selected')
-}
+  selectTime(e) {
+    const time = e.target.dataset.time
+    this.timeTarget.value = time
+  }
+
+  validateForm(e){
+    e.preventDefault()
+     const selectedService = this.checkboxTargets.filter(cb=> cb.checked)
+     if(selectedService.length === 0) {
+      this.serviceErrorTarget.innerText = "Please select at least one service."
+     }
+
+     const selectedProfessional = Array.from(this.professionalsListTarget.querySelectorAll("input[type='radio']:enabled"))
+    .find(radio => radio.checked);
+
+     if(!selectedProfessional) {
+      this.professionalErrorTarget.innerText="Please select at least one professional."
+     }
+
+     const date = this.dateTarget.value
+     const time = this.timeTarget.value
+
+    if(!date||!time) {
+      this.dateTimeErrorTarget.innerText = "Please select a date and time"
+    }
+
+  }
 
 }
