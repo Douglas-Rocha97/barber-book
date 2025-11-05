@@ -24,10 +24,10 @@
     <% @appointments.each do |appointment|  %>
       <div class="appointment-card rounded-5  d-flex position-relative">
         <% if appointment.goal_image.attached? %>
-          <%= image_tag appointment.goal_image, class: "h-100 rounded-5" %>
+          <%= image_tag appointment.goal_image, class: "h-100 rounded-5 w-50" %>
         <% else %>
           <div class="bg-danger avatar-w d-flex align-items-center justify-content-center rounded-5 bg-dark">
-            <%= image_tag "user.png", alt: "no avatar image", class: "h-50"%>
+            <%= image_tag "user.png", alt: "no avatar image", class: "w-50"%>
           </div>
         <% end %>
         <div class="d-flex flex-column align-items-center mx-auto">

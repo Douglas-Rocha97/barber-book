@@ -2,7 +2,10 @@
 # https://dribbble.com/shots/25508922-Barber-Booking-Mobile-App
 class AppointmentsController < ApplicationController
   def index
-    @appointments = Appointment.all
+    current_user.appointments.where("date < ? OR (date = ? AND finish_time < ?)",
+                                  Date.today, Date.today, Time.current.strftime("%H:%M:%S")).destroy_all
+
+    @appointments = current_user.appointments
   end
 
   def new
@@ -41,7 +44,7 @@ class AppointmentsController < ApplicationController
 
     if @appointment.save
       @appointment.services << services
-      redirect_to appointments_path, notice: "Appointment created!"
+      redirect_to appointments_path
     else
       puts @appointment.errors.full_messages
       @services = Service.all
@@ -54,7 +57,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     @appointment.destroy
 
-    redirect_back(fallback_location: appointments_path, notice: "Appointment Deleted")
+    redirect_back(fallback_location: appointments_path)
   end
 
   def available_times

@@ -49,7 +49,7 @@ body{
 }
 
 .appointment-card{
-  height: 12em;
+  min-height: 12em;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -69,5 +69,5 @@ body{
 }
 
 .avatar-w{
-  width: 40% !important;
+  width: 50% !important;
 }
