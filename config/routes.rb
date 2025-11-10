@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  get 'home/index'
   devise_for :users
 
   authenticated :user do
-    root to: "appointments#index", as: :authenticated_root
+    root to: "home#index", as: :authenticated_root
   end
 
   devise_scope :user do
@@ -20,4 +21,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   resources :appointments, only: [:index, :new, :create, :destroy]
   get "appointments/available_times", to: "appointments#available_times"
+
+  namespace :owner do
+    get 'dashboard/index'
+    get "dashboard", to: "dashboard#index"
+  end
 end
