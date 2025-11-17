@@ -1,4 +1,4 @@
-<div class="wrapper text-light" data-controller="appointment">
+<div class="text-light" data-controller="appointment">
   <%= simple_form_for @appointment, html: {data: { action: "submit->appointment#validateForm"}} do |f|%>
     <div id="header" class="d-flex mx-3  align-items-center justify-content-between py-3">
       <%= link_to appointments_path, class: "rounded-3 fs-4 back-btn" do%>
@@ -23,7 +23,6 @@
                 <%= cb.label class: "d-flex flex-column align-items-center" do %>
                   <span class="text-nowrap"><%= cb.text %></span>
                   <span>¥<%= number_with_delimiter(@services.find(cb.value.to_i).price, delimiter: ".") %></span>
-
                 <% end %>
               </div>
             <% end %>
