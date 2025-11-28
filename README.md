@@ -1,8 +1,9 @@
 📖 Barber-Book
 
-## 🎬 Project Demo
-![Barber-Book user Demo](app/assets/gif/userDemo.gif)
-![Barber-Book owner Demo](app/assets/gif/ownerDemo.gif)
+🎬 Project Demo
+
+<img src="app/assets/gif/userDemo.gif" width="500px">
+<img src="app/assets/gif/ownerDemo.gif" width="500px">
 
 The Barber-Book is a web application designed to make appointment scheduling easier for barbershops and their clients.
 Clients can quickly book services, while barbers and shop owners can view, organize, and keep track of all appointments through a calendar and date-based filters.
