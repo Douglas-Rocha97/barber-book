@@ -1,5 +1,5 @@
-🎬 Project Demo
-<div style="display: flex; gap: 10px;">
+🎬 Project Demo(User Demo/ Owner Demo)
+<div style="display: flex; gap: 25px;">
     <img src="app/assets/gif/userDemo.gif" width="200px" alt="User Demo">
     <img src="app/assets/gif/ownerDemo.gif" width="200px" alt="Owner Demo">
 </div>
