@@ -1,5 +1,5 @@
 🎬 Project Demo
-<div style="display: flex; gap: 20px;">
+<div style="display: flex; gap: 10px;">
   <div>
     <h6>User Demo</h6>
     <img src="app/assets/gif/userDemo.gif" width="200px">
