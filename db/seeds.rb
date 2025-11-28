@@ -20,7 +20,7 @@ user1 = User.create!(
   name: "Douglas",
   gender: "male",
   email: "douglas@example.com",
-  password: "123456",
+  password: "abc123456",
   role: :owner,
   number: "080-3509-2343"
 )
@@ -36,7 +36,7 @@ user2 = User.create!(
   name: "Giovanni",
   gender: "male",
   email: "giovanni@example.com",
-  password: "123456",
+  password: "abc123456",
   role: :user,
   number: "090-3509-9999"
 )
@@ -53,7 +53,7 @@ user3 = User.create!(
   name: "Diego",
   gender: "male",
   email: "diego@example.com",
-  password: "123456",
+  password: "abc123456",
   role: :user,
   number: "070-3509-0099"
 )
