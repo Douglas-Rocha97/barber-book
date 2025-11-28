@@ -2,12 +2,12 @@
 <div style="display: flex; gap: 10px;">
   <div>
     <h6>User Demo</h6>
-    <img src="app/assets/gif/userDemo.gif" width="200px">
+    <img src="app/assets/gif/userDemo.gif" width="100px">
   </div>
 
   <div>
     <h6>Owner Demo</h6>
-    <img src="app/assets/gif/ownerDemo.gif" width="200px">
+    <img src="app/assets/gif/ownerDemo.gif" width="100px">
   </div>
 </div>
 
