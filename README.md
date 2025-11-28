@@ -43,15 +43,15 @@ rails db:seed
 User accounts (clients):
 
 diego@example.com
- | password: 123456
+ | password: abc123456
 
 giovanni@example.com
- | password: 123456
+ | password: abc123456
 
 Owner account (barber / admin):
 
 douglas@example.com
- | password: 123456
+ | password: abc123456
 
 ▶️ Running the Project
 
